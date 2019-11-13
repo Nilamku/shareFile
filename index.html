@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Page Title</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+
+<body>
+    <div class="text-center text-primary">
+        <h2>Input your location to get your weather </h2>
+    </div>
+
+    <form class="well" action="/weather" method="GET">
+        <div class="row">
+            <div class="col-sm-8">
+                <input class="form-control" id="txtAdress" type="text" placeholder="Enter your weather">
+            </div>
+            <div class="col-sm-4">
+                <button type="submit" class="btn btn-primary" onclick="showWeather(event)">Submit</button>
+            </div>
+            <div id="showMessage" class="text-center text-primary"></div>
+        </div>
+    </form>
+    <script>
+        function showWeather(even) {
+            const address = document.getElementById("txtAdress").value
+            const showMessage = document.getElementById("showMessage")
+            event.preventDefault();
+            fetch("/weather?txtAddress=" + address).then(
+                response => response.json()).then(resp => {
+                    console.log(resp);
+                    showMessage.innerHTML = resp.message
+                })
+        }
+    </script>
+
+</body>
+
+</html>
